@@ -4,12 +4,7 @@
 [![CircleCI Build Status](https://circleci.com/gh/membraneframework/circleci-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/membraneframework/circleci-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/membraneframework/elixir.svg)](https://circleci.com/orbs/registry/orb/membraneframework/elixir) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/membraneframework/circleci-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 
-
-A project template for Orbs.
-
-This repository is designed to be automatically ingested and modified by the CircleCI CLI's `orb init` command.
-
-_**Edit this area to include a custom title and description.**_
+Common commands and jobs to build, test and lint Membrane Framework packages
 
 ---
 
