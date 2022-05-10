@@ -8,20 +8,49 @@ filters: &filters
     only: /.*/
 
 jobs:
-    # Create a job to test the commands of your orbs.
-    # You may want to add additional validation steps to ensure the commands are working as expected.
-    command-tests:
-      docker:
-        - image: cimg/base:current
-      steps:
-        - checkout
-        # Run your orb's commands to validate them.
-        - elixir/greet
+  # Create a job to test the commands of your orbs.
+  # You may want to add additional validation steps to ensure the commands are working as expected.
+  dev-commands-test:
+    executor:
+      name: elixir/docker_membrane
+      mix_env: dev
+    steps:
+      - checkout
+      - run: wget -O - https://github.com/membraneframework/membrane_file_plugin/archive/refs/tags/v0.12.0.tar.gz | tar xz
+      - run: cd membrane_file_plugin-0.12.0
+      - elixir/get_mix_deps
+      - elixir/use_build_cache:
+          env: dev
+          regenerate: true
+          before-save:
+            - run: mix compile
+      - elixir/run_dialyzer
+  test-commands-test:
+    executor:
+      name: elixir/docker_membrane
+      mix_env: test
+    steps:
+      - checkout
+      - run: wget -O - https://github.com/membraneframework/membrane_file_plugin/archive/refs/tags/v0.12.0.tar.gz | tar xz
+      - run: cd membrane_file_plugin-0.12.0
+      - elixir/get_mix_deps
+      - elixir/use_build_cache:
+          env: test
+          regenerate: true
+          before-save:
+            - run: mix deps.compile
+            - run: mix compile --force --warnings-as-errors
+      - run: mix clean --deps
+      - elixir/use_build_cache:
+          env: test
+      - run: mix compile
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - command-tests:
+      - dev-commands-test:
+          filters: *filters
+      - test-commands-test:
           filters: *filters
       - orb-tools/pack:
           filters: *filters
@@ -31,7 +60,8 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - command-tests
+            - dev-commands-test
+            - test-commands-test
           context: orb-publishing
           filters:
             branches:
