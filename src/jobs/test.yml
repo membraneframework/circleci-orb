@@ -10,5 +10,6 @@ steps:
   - get_mix_deps
   - use_build_cache:
       env: test
-  - run: mix compile
-  - run: mix test --warnings-as-errors
+  - run:
+      name: Run all tests
+      command: mix test --warnings-as-errors

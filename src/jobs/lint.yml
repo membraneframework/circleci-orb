@@ -13,7 +13,13 @@ steps:
       regenerate: true
       before-save:
         - run: mix compile
-  - run: mix format --check-formatted
-  - run: mix credo
-  - run: mix docs && mix docs 2>&1 | (! grep -q "warning:")
+  - run:
+      name: Check code formatting
+      command: mix format --check-formatted
+  - run:
+      name: Run Credo linter
+      command: mix credo
+  - run:
+      name: Check docs generation for warnings
+      command: mix docs && mix docs 2>&1 | (! grep -q "warning:")
   - run_dialyzer

@@ -10,8 +10,12 @@ steps:
       keys:
         - v<< parameters.cache-version >>-mix-deps-{{ checksum "mix.lock" }}
         - v<< parameters.cache-version >>-mix-deps-
-  - run: mix deps.clean --unused
-  - run: mix deps.get
+  - run:
+      name: Remove unused deps from cache
+      command: mix deps.clean --unused
+  - run:
+      name: Get dependencies
+      command: mix deps.get
   - save_cache:
       key: v<< parameters.cache-version >>-mix-deps-{{ checksum "mix.lock" }}
       paths: ["deps"]

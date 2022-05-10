@@ -7,15 +7,23 @@ parameters:
     default: 1
     description: "Current cache version number"
 steps:
-  - run: mkdir -p "priv/plts"
-  - run: asdf current erlang > .runtime_version
-  - run: asdf current elixir >> .runtime_version
+  - run:
+      name: Ensure PLTs dir exists
+      command: mkdir -p "priv/plts"
+  - run:
+      name: Get Erlang version
+      command: asdf current erlang > .runtime_version
+  - run:
+      name: Get Elixir version
+      command: asdf current elixir >> .runtime_version
   - restore_cache:
       keys:
         - v<< parameters.version >>-dialyzer-{{ checksum ".runtime_version" }}-{{ checksum "mix.lock" }}
         - v<< parameters.version >>-dialyzer-{{ checksum ".runtime_version" }}-
         - v<< parameters.version >>-dialyzer-
-  - run: mix dialyzer
+  - run:
+      name: Run dialyzer type analysis
+      command: mix dialyzer
   - save_cache:
       key: v<< parameters.version >>-dialyzer-{{ checksum ".runtime_version" }}-{{ checksum "mix.lock" }}
       paths: ["priv/plts"]
