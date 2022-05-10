@@ -26,9 +26,9 @@ steps:
         - v<< parameters.version >>-build-{{ arch }}-
         - v<< parameters.version >>-build-
   - when:
-      condition: << parameters.save >>
+      condition: << parameters.regenerate >>
       steps:
         - steps: << parameters.before-save >>
         - save_cache:
-          key: v<< parameters.version >>-build-{{ arch }}-<< parameters.env >>-{{ checksum "mix.lock" }}
-          paths: ["_build/<< parameters.env >>"]
+            key: v<< parameters.version >>-build-{{ arch }}-<< parameters.env >>-{{ checksum "mix.lock" }}
+            paths: ["_build/<< parameters.env >>"]

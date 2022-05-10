@@ -8,10 +8,10 @@ parameters:
 steps:
   - restore_cache:
       keys:
-        - v<<parameters.cache-version>>-mix-deps-{{ checksum "mix.lock" }}
-        - v<<parameters.cache-version>>-mix-deps-
+        - v<< parameters.cache-version >>-mix-deps-{{ checksum "mix.lock" }}
+        - v<< parameters.cache-version >>-mix-deps-
   - run: mix deps.clean --unused
   - run: mix deps.get
   - save_cache:
-      key: v<<parameters.cache-version>-mix-deps-{{ checksum "mix.lock" }}
+      key: v<< parameters.cache-version >>-mix-deps-{{ checksum "mix.lock" }}
       paths: ["deps"]
