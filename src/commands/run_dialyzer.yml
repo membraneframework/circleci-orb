@@ -1,0 +1,21 @@
+description: >
+  Runs dialyzer using cache for PLT files.
+  Assumes Elixir & Erlang are installed via asdf-vm
+parameters:
+  version:
+    type: integer
+    default: 1
+    description: "Current cache version number"
+steps:
+  - run: mkdir -p "priv/plts"
+  - run: asdf current erlang > .runtime_version
+  - run: asdf current elixir >> .runtime_version
+  - restore_cache:
+      keys:
+        - v<< parameters.version >>-dialyzer-{{ checksum ".runtime_version" }}-{{ checksum "mix.lock" }}
+        - v<< parameters.version >>-dialyzer-{{ checksum ".runtime_version" }}-
+        - v<< parameters.version >>-dialyzer-
+  - run: mix dialyzer
+  - save_cache:
+      key: v<< parameters.version >>-dialyzer-{{ checksum ".runtime_version" }}-{{ checksum "mix.lock" }}
+      paths: ["priv/plts"]

@@ -1,0 +1,17 @@
+description: >
+  Gets mix dependencies using cache
+parameters:
+  cache-version:
+    type: integer
+    default: 1
+    description: "Version number, can be used to force cache recreation"
+steps:
+  - restore_cache:
+      keys:
+        - v<<parameters.cache-version>>-mix-deps-{{ checksum "mix.lock" }}
+        - v<<parameters.cache-version>>-mix-deps-
+  - run: mix deps.clean --unused
+  - run: mix deps.get
+  - save_cache:
+      key: v<<parameters.cache-version>-mix-deps-{{ checksum "mix.lock" }}
+      paths: ["deps"]

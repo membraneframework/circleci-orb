@@ -1,0 +1,17 @@
+description: >
+  Tests compilation process of a project
+
+executor:
+  name: docker_membrane
+  mix_env: test
+
+steps:
+  - checkout
+  - get_mix_deps
+  - use_build_cache:
+      env: test
+      regenerate: true
+      before-save:
+        - run: mix deps.compile
+        - run: mix compile --force --warnings-as-errors
+  - run: mix deps.unlock --check-unused
