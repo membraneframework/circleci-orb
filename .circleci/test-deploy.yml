@@ -15,13 +15,16 @@ jobs:
     steps:
       - checkout
       - run: wget -O - https://github.com/membraneframework/membrane_file_plugin/archive/refs/tags/v0.12.0.tar.gz | tar xz --strip-components=1
-      - elixir/get_mix_deps
+      - elixir/get_mix_deps:
+          cache-version: 2137
       - elixir/use_build_cache:
+          cache-version: 2137
           env: dev
           regenerate: true
           before-save:
             - run: mix compile
-      - elixir/run_dialyzer
+      - elixir/run_dialyzer:
+          cache-version: 2137
   test-commands-test:
     executor:
       name: elixir/docker_membrane
@@ -29,8 +32,10 @@ jobs:
     steps:
       - checkout
       - run: wget -O - https://github.com/membraneframework/membrane_file_plugin/archive/refs/tags/v0.12.0.tar.gz | tar xz --strip-components=1
-      - elixir/get_mix_deps
+      - elixir/get_mix_deps:
+          cache-version: 2137
       - elixir/use_build_cache:
+          cache-version: 2137
           env: test
           regenerate: true
           before-save:
