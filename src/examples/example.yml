@@ -1,13 +1,13 @@
 description: >
-  Sample example description.
-# Provide a use-case based example for using this orb.
-# Everything in the `usage` section will be displayed in the orb registry.
-# Comments are not retained.
+  Example of basic workflow using standard jobs provided with this orb
 usage:
   version: 2.1
   orbs:
-    <orb-name>: <namespace>/<orb-name>@1.2.3
+    elixir: membraneframework/elixir@1.0
   workflows:
-    use-my-orb:
+    version: 2
+    build:
       jobs:
-        - <orb-name>/<job-name>
+        - elixir/build_test
+        - elixir/test
+        - elixir/lint

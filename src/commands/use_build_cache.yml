@@ -1,0 +1,34 @@
+description: >
+  Allows to run compilation using cache
+parameters:
+  cache-version:
+    type: integer
+    default: 1
+    description: "Version number, can be used to force cache recreation"
+  env:
+    type: string
+    default: dev
+    description: Mix environment
+  regenerate:
+    type: boolean
+    default: false
+    description: Determines whether the cache will be saved
+  before-save:
+    type: steps
+    default: []
+    description: >
+      Steps to invoke between restoring and saving cache if saving is enabled
+steps:
+  - restore_cache:
+      keys:
+        - v<< parameters.cache-version >>-build-{{ arch }}-<< parameters.env >>-{{ checksum "mix.lock" }}
+        - v<< parameters.cache-version >>-build-{{ arch }}-<< parameters.env >>-
+        - v<< parameters.cache-version >>-build-{{ arch }}-
+        - v<< parameters.cache-version >>-build-
+  - when:
+      condition: << parameters.regenerate >>
+      steps:
+        - steps: << parameters.before-save >>
+        - save_cache:
+            key: v<< parameters.cache-version >>-build-{{ arch }}-<< parameters.env >>-{{ checksum "mix.lock" }}
+            paths: ["_build/<< parameters.env >>"]

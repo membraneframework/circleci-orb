@@ -1,0 +1,15 @@
+description: >
+  Runs tests for a project
+
+executor:
+  name: docker_membrane
+  mix_env: test
+
+steps:
+  - checkout
+  - get_mix_deps
+  - use_build_cache:
+      env: test
+  - run:
+      name: Run all tests
+      command: mix test --warnings-as-errors
