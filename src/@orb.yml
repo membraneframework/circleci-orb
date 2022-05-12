@@ -2,10 +2,7 @@ version: 2.1
 
 description: >
   Common commands and jobs to build, test and lint Membrane Framework packages
-# What will your orb allow users to accomplish?
-# Descriptions should be short, simple, and informative.
 
-# This information will be displayed in the orb registry and is not mandatory.
 display:
   home_url: "https://membraneframework.org"
   source_url: "https://www.github.com/membraneframework/circleci-orb"
