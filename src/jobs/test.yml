@@ -7,9 +7,15 @@ executor:
 
 steps:
   - checkout
+  - run:
+      name: Ensure priv dir exists
+      command: mkdir -p priv
   - get_mix_deps
   - use_build_cache:
       env: test
+  - run:
+      name: Ensure native deps are compiled
+      command: mix deps.compile
   - run:
       name: Run all tests
       command: mix test --warnings-as-errors
