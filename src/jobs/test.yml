@@ -11,5 +11,8 @@ steps:
   - use_build_cache:
       env: test
   - run:
+      name: Ensure native deps are compiled
+      command: mix deps.compile
+  - run:
       name: Run all tests
       command: mix test --warnings-as-errors
