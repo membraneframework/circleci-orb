@@ -5,6 +5,19 @@ executor:
   name: docker_membrane
   mix_env: dev
 
+parameters:
+  credo:
+    description: Enables credo linting
+    type: boolean
+    default: true
+  docs:
+    description: Enables docs generation warnings check
+    type: boolean
+    default: true
+  dialyzer:
+    description: Enables dialyzer type checking
+    type: boolean
+    default: true
 steps:
   - checkout
   - run:
@@ -19,10 +32,19 @@ steps:
   - run:
       name: Check code formatting
       command: mix format --check-formatted
-  - run:
-      name: Run Credo linter
-      command: mix credo
-  - run:
-      name: Check docs generation for warnings
-      command: mix docs && mix docs 2>&1 | (! grep -q "warning:")
-  - run_dialyzer
+  - when:
+      condition: << parameters.credo >>
+      steps:
+        - run:
+            name: Run Credo linter
+            command: mix credo
+  - when:
+      condition: << parameters.docs >>
+      steps:
+        - run:
+            name: Check docs generation for warnings
+            command: mix docs && mix docs 2>&1 | (! grep -q "warning:")
+  - when:
+      condition: << parameters.dialyzer >>
+      steps:
+        - run_dialyzer
