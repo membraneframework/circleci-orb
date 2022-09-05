@@ -1,10 +1,14 @@
-# Orb Template
+# membraneframework/elixir Orb
 
 
 [![CircleCI Build Status](https://circleci.com/gh/membraneframework/circleci-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/membraneframework/circleci-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/membraneframework/elixir.svg)](https://circleci.com/orbs/registry/orb/membraneframework/elixir) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/membraneframework/circleci-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 
-Common commands and jobs to build, test and lint Membrane Framework packages
+Common commands and jobs to build, test and lint Membrane Framework packages written in Elixir
+
+## Usage
+
+The usage examples can be found at [CircleCI Orb Registry Page for this Orb](https://circleci.com/orbs/registry/orb/membraneframework/elixir) or inside this repo at [src/examples](src/examples)
 
 ---
 
