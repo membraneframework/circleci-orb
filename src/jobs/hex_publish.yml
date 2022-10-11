@@ -10,4 +10,4 @@ steps:
   - get_mix_deps
   - run:
       name: Publish to hex.pm
-      command: mix hex.publish --organization membraneframework --yes
+      command: mix hex.publish --yes
