@@ -3,7 +3,7 @@ description: >
 
 executor:
   name: docker_membrane
-  mix_env: test
+  mix_env: dev
 
 steps:
   - checkout
