@@ -7,9 +7,6 @@ executor:
 
 steps:
   - checkout
-  - run:
-      name: Ensure priv dir exists
-      command: mkdir -p priv
   - get_mix_deps
   - use_build_cache:
       env: test
