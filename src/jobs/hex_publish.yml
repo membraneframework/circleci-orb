@@ -1,0 +1,15 @@
+description: >
+  Publish the package to hex
+
+executor:
+  name: docker_membrane
+  mix_env: dev
+
+steps:
+  - checkout
+  - get_mix_deps
+  - use_build_cache:
+      env: test
+  - run:
+      name: Publish to hex.pm
+      command: mix hex.publish --yes
