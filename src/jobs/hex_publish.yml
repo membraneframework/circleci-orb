@@ -7,7 +7,12 @@ executor:
 
 steps:
   - checkout
+  - run:
+      name: Ensure priv dir exists
+      command: mkdir -p priv
   - get_mix_deps
+  - use_build_cache:
+      env: test
   - run:
       name: Publish to hex.pm
       command: mix hex.publish --yes
