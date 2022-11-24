@@ -8,8 +8,7 @@ executor:
 steps:
   - checkout
   - get_mix_deps
-  - use_build_cache:
-      env: test
+  - use_build_cache
   - run:
       name: Publish to hex.pm
       command: mix hex.publish --yes
