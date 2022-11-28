@@ -10,5 +10,8 @@ steps:
   - get_mix_deps
   - use_build_cache
   - run:
+      name: Ensure priv dir exists
+      command: mkdir -p priv
+  - run:
       name: Publish to hex.pm
       command: mix hex.publish --yes
