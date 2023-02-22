@@ -5,13 +5,21 @@ executor:
   name: docker_membrane
   mix_env: test
 
+parameters:
+  cache-version:
+    description: "Cache version number, can be used to force cache recreation"
+    type: integer
+    default: 1
+
 steps:
   - checkout
   - run:
       name: Ensure priv dir exists
       command: mkdir -p priv
-  - get_mix_deps
+  - get_mix_deps:
+      cache-version: << parameters.cache-version >>
   - use_build_cache:
+      cache-version: << parameters.cache-version >>
       env: test
   - run:
       name: Ensure native deps are compiled
