@@ -11,10 +11,14 @@ parameters:
 
 steps:
   - checkout
-  - run: apt-get update
-  - run: apt-get install -y curl gcc git make g++ bzip2
   - run:
+      name: Get apt dependencies
       command:  |
+        apt-get update
+        apt-get install -y curl gcc git make g++ bzip2
+  - run:
+      name: Precompile package
+      command:  |      
         chmod a+x ./scripts/precompile_for_linux.sh
         ./scripts/precompile_for_linux.sh << parameters.package-name >>
   - persist_to_workspace:
