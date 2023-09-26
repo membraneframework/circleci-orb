@@ -13,9 +13,9 @@ steps:
   - checkout
   - run:
       name: Precompile package
-      command: |
-        chmod a+x ./scripts/precompile_for_macos_intel.sh
-        ./scripts/precompile_for_macos_intel.sh << parameters.package-name >>
+      command: include(script/precompile_for_macos_intel.sh)
+      environment:
+        PACKAGE_NAME: << parameters.package-name >>
   - persist_to_workspace:
       root: ~/project/
       paths:

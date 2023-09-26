@@ -18,9 +18,9 @@ steps:
         apt-get install -y curl gcc git make g++ bzip2
   - run:
       name: Precompile package
-      command:  |      
-        chmod a+x ./scripts/precompile_for_linux.sh
-        ./scripts/precompile_for_linux.sh << parameters.package-name >>
+      command: include(script/precompile_for_linux.sh)
+      environment:
+        PACKAGE_NAME: << parameters.package-name >>
   - persist_to_workspace:
       root: ~/project/
       paths:
