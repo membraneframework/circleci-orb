@@ -14,6 +14,6 @@ steps:
       at: ~/
   - run:
       name: Publish release
-      command: include(scripts/publish_precompiled.sh)
+      command: << include(scripts/publish_precompiled.sh) >>
       environment:
         VERSION: << parameters.version >>

@@ -13,7 +13,7 @@ steps:
   - checkout
   - run:
       name: Precompile package
-      command: include(script/precompile_for_macos_intel.sh)
+      command: << include(script/precompile_for_macos_intel.sh) >>
       environment:
         PACKAGE_NAME: << parameters.package-name >>
   - persist_to_workspace:
