@@ -12,11 +12,6 @@ parameters:
 steps:
   - checkout
   - run:
-      name: Get apt dependencies
-      command:  |
-        apt-get update
-        apt-get install -y curl gcc git make g++ bzip2
-  - run:
       name: Precompile package
       command: include(script/precompile_for_linux.sh)
       environment:

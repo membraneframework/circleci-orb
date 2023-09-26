@@ -5,7 +5,7 @@ mkdir -p ~/project/workspace/$artifact_name/lib
 brew install $PACKAGE_NAME
 cp -r /usr/local/include/* ~/project/workspace/$artifact_name/include
 cp -r /usr/local/lib/*.dylib ~/project/workspace/$artifact_name/lib
-cd ~/project/workspace/$artifact_name/lib
+cd ~/project/workspace/$artifact_name/lib || exit
 for f in *.dylib;
 do
     install_name_tool -id "@rpath/$f" $f
