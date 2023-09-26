@@ -12,9 +12,8 @@ docker:
 steps:
   - attach_workspace:
       at: ~/
-  - run: 
+  - run:
       name: Publish release
       command: include(scripts/publish_precompiled.sh)
       environment:
         VERSION: << parameters.version >>
-        
