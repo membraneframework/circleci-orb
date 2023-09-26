@@ -1,0 +1,30 @@
+description: >
+  Publish a precompiled package
+
+parameters:
+  version:
+    description: "Version of the github release"
+    type: "string"
+    default: "latest"
+
+docker:
+  - image: ubuntu
+steps:
+  - attach_workspace:
+      at: ~/
+  - run: mkdir /root/artifacts
+  - run: |
+        directory=/root/workspace
+        for subdir in "$directory"/*; do
+          if [ -d "$subdir" ]; then  
+            subdir_name="$(basename "$subdir")"
+            tar -czvf "$subdir_name.tar.gz" -C "$directory" "$subdir_name"
+            mv "$subdir_name.tar.gz" /root/artifacts
+          fi
+        done
+  - run: apt update
+  - run: cd /root/
+  - run: apt install -y wget
+  - run: wget https://github.com/tcnksm/ghr/releases/download/v0.16.0/ghr_v0.16.0_linux_amd64.tar.gz
+  - run: tar -xf ghr_v0.16.0_linux_amd64.tar.gz
+  - run: ./ghr_v0.16.0_linux_amd64/ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete << parameters.version >> /root/artifacts/ 

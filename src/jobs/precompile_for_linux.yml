@@ -1,0 +1,23 @@
+description: >
+  Precompile a package for linux
+
+docker:
+  - image: ubuntu
+
+parameters: 
+  package-name:
+    description: "Name of the package to precompile"
+    type: string
+
+steps:
+  - checkout
+  - run: apt-get update
+  - run: apt-get install -y curl gcc git make g++ bzip2
+  - run:
+      command:  |
+        chmod a+x ./scripts/precompile_for_linux.sh
+        ./scripts/precompile_for_linux.sh << parameters.package-name >>
+  - persist_to_workspace:
+      root: ~/project/
+      paths:
+        - workspace/<< parameters.package-name >>_linux

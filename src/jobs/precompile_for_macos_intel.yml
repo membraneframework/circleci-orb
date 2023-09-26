@@ -1,0 +1,20 @@
+description: >
+  Precompile a package for macos with intel architecture
+
+parameters: 
+  package-name:
+    description: "Name of the package to precompile"
+    type: string
+
+macos:
+  xcode: 14.0.1
+steps:
+  - checkout
+  - run:
+      command: |
+        chmod a+x ./scripts/precompile_for_macos_intel.sh
+        ./scripts/precompile_for_macos_intel.sh << parameters.package-name >>
+  - persist_to_workspace:
+      root: ~/project/
+      paths:
+        - workspace/<< parameters.package-name >>_macos_intel
