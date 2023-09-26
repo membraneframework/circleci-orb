@@ -7,7 +7,7 @@ for subdir in "$directory"/*; do
     mv "$subdir_name.tar.gz" /root/artifacts
     fi
 done
-pt update
+apt update
 cd /root/ || exit
 apt install -y wget
 wget https://github.com/tcnksm/ghr/releases/download/v0.16.0/ghr_v0.16.0_linux_amd64.tar.gz
