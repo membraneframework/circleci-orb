@@ -6,8 +6,12 @@ docker:
 
 parameters:
   package-name:
-    description: "Name of the package to precompile"
+    description: Name of the package to precompile
     type: string
+  version:
+    description: Version of the package
+    type: string 
+    default: null
 
 steps:
   - checkout
@@ -16,6 +20,7 @@ steps:
       command: << include(scripts/precompile_for_linux.sh) >>
       environment:
         PACKAGE_NAME: << parameters.package-name >>
+        EXPECTED_VERSION: << parameters.version >>
   - persist_to_workspace:
       root: ~/project/
       paths:

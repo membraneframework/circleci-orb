@@ -1,14 +1,14 @@
 description: >
   Publish a precompiled package
 
-parameters:
-  version:
-    description: "Version of the github release"
-    type: "string"
-    default: "latest"
-
 docker:
   - image: ubuntu
+
+parameters:
+  version:
+    description: Name of the github release
+    type: string
+
 steps:
   - attach_workspace:
       at: ~/
