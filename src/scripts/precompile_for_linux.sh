@@ -7,7 +7,8 @@ mkdir -p ~/project/workspace/$artifact_name/lib
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 brew install $PACKAGE_NAME
 cp -Lr /home/linuxbrew/.linuxbrew/include/* ~/project/workspace/$artifact_name/include
-for f in /home/linuxbrew/.linuxbrew/lib/*.so.*
+cd /home/linuxbrew/.linuxbrew/lib || exit
+for f in *.so.*
 do
     cp -a "$(readlink $f)" ~/project/workspace/$artifact_name/lib
 done
