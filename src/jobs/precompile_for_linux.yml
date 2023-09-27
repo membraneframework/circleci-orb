@@ -10,7 +10,7 @@ parameters:
     type: string
   version:
     description: Version of the package
-    type: string 
+    type: string
     default: null
 
 steps:
