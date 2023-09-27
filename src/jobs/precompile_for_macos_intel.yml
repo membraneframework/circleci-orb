@@ -11,7 +11,7 @@ parameters:
   expected-version:
     description: Version of the package
     type: string
-    default: null
+    default: "null"
 
 steps:
   - checkout
