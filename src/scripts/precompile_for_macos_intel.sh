@@ -7,5 +7,5 @@ cp -r /usr/local/include/* ~/project/workspace/$artifact_name/include
 for f in /usr/local/lib/*.dylib
 do
     install_name_tool -id "@rpath/$(basename $f)" $f
-    cp -a $(readlink $f) ~/project/workspace/$artifact_name/lib
+    cp -a "$(readlink $f)" ~/project/workspace/$artifact_name/lib
 done

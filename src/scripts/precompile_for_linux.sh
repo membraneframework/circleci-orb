@@ -9,5 +9,5 @@ brew install $PACKAGE_NAME
 cp -Lr /home/linuxbrew/.linuxbrew/include/* ~/project/workspace/$artifact_name/include
 for f in /home/linuxbrew/.linuxbrew/lib/*.so.*
 do
-    cp -a $(readlink $f) ~/project/workspace/$artifact_name/lib
+    cp -a "$(readlink $f)" ~/project/workspace/$artifact_name/lib
 done
