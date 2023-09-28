@@ -12,8 +12,8 @@ if [[ ! $EXPECTED_VERSION =~ ^($real_version|"not a tag") ]]; then
     echo "Version passed via tag not matching installed version"
     exit 1
 fi    
-cp -r "${brew_prefix}/include/*" ~/project/workspace/$artifact_name/include
-cd "${brew_prefix}/lib" || exit 1
+cp -r ${brew_prefix}/include/* ~/project/workspace/$artifact_name/include
+cd ${brew_prefix}/lib || exit 1
 for f in *.dylib; do
     install_name_tool -id "@rpath/$f" $f
     cp -a "$(readlink $f)" ~/project/workspace/$artifact_name/lib
