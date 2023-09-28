@@ -7,7 +7,7 @@ mkdir -p ~/project/workspace/$artifact_name/lib
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 brew install $PACKAGE_NAME
 real_version="v$(brew list --versions | grep -w $PACKAGE_NAME | cut -d ' ' -f 2)"
-if [[ ! $EXPECTED_VERSION =~ ^($real_version|"null") ]]; then
+if [[ ! $EXPECTED_VERSION =~ ^($real_version|"not a tag") ]]; then
     echo "Version passed via tag not matching installed version"
     exit 1
 fi    

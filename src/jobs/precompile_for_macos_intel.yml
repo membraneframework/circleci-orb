@@ -12,7 +12,7 @@ parameters:
   expected-version:
     description: Version of the package
     type: string
-    default: ""
+    default: not a tag
 
 steps:
   - checkout
