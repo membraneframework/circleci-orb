@@ -1,5 +1,5 @@
 description: >
-  Precompile a package for macOS with M1 architecture
+  Precompile a package for macOS with ARM architecture
 
 macos:
   xcode: 14.0.1
@@ -22,8 +22,8 @@ steps:
       environment:
         PACKAGE_NAME: << parameters.package-name >>
         EXPECTED_VERSION: << parameters.expected-version >>
-        ARCHITECTURE: m1
+        ARCHITECTURE: arm
   - persist_to_workspace:
       root: ~/project/
       paths:
-        - workspace/<< parameters.package-name >>_macos_m1
+        - workspace/<< parameters.package-name >>_macos_arm

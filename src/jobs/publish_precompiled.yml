@@ -8,7 +8,6 @@ parameters:
   version:
     description: Name of the github release
     type: string
-    default: "null"
 
 steps:
   - attach_workspace:

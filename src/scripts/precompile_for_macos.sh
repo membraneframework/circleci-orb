@@ -1,6 +1,6 @@
 artifact_name="${PACKAGE_NAME}_macos_${ARCHITECTURE}"
 case $ARCHITECTURE in 
-    m1) brew_prefix="/opt/homebrew" ;;
+    arm) brew_prefix="/opt/homebrew" ;;
     intel) brew_prefix="/usr/local" ;;
 esac    
 mkdir -p ~/project/workspace/$artifact_name/include
