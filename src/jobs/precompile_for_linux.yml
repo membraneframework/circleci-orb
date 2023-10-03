@@ -9,9 +9,9 @@ parameters:
     description: Name of the package to precompile
     type: string
   expected-version:
-    description: Version of the package
+    description: Expected version of the package, if not provided don't check if the same as real
     type: string
-    default: not a tag
+    default: no check
 
 steps:
   - checkout

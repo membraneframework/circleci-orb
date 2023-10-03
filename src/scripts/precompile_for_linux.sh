@@ -7,13 +7,13 @@ mkdir -p ~/project/workspace/$artifact_name/lib
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 brew install $PACKAGE_NAME
 real_version="v$(brew list --versions | grep -w $PACKAGE_NAME | cut -d ' ' -f 2)"
-if [[ ! $EXPECTED_VERSION =~ ^($real_version|"not a tag") ]]; then
-    echo "Version passed via tag not matching installed version"
+if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check") ]]; then
+    echo "Version passed via tag: $(EXPECTED_VERSION) not matching installed version: $($real_version)"
     exit 1
 fi    
 cp -Lr /home/linuxbrew/.linuxbrew/include/* ~/project/workspace/$artifact_name/include
 cd /home/linuxbrew/.linuxbrew/lib || exit
-for f in *.so.*
+for f in *.so*
 do
     cp -a "$(readlink $f)" ~/project/workspace/$artifact_name/lib
 done
