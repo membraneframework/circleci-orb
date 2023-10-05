@@ -1,10 +1,12 @@
 mkdir /root/artifacts
 directory=/root/workspace
-for subdir in "$directory"/*; do
-    if [ -d "$subdir" ]; then  
-    subdir_name="$(basename "$subdir")"
-    tar -czvf "$subdir_name.tar.gz" -C "$directory" "$subdir_name"
-    mv "$subdir_name.tar.gz" /root/artifacts
+for subdir in "$directory"/*
+do
+    if [ -d "$subdir" ]
+    then  
+        subdir_name="$(basename "$subdir")"
+        tar -czvf "$subdir_name.tar.gz" -C "$directory" "$subdir_name"
+        mv "$subdir_name.tar.gz" /root/artifacts
     fi
 done
 apt update
