@@ -1,0 +1,20 @@
+description: >
+  Publish a precompiled package
+
+docker:
+  - image: ubuntu
+
+parameters:
+  version:
+    description: Name of the github release
+    type: string
+    default: no check
+
+steps:
+  - attach_workspace:
+      at: ~/
+  - run:
+      name: Publish release
+      command: << include(scripts/publish_precompiled.sh) >>
+      environment:
+        VERSION: << parameters.version >>

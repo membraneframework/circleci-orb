@@ -1,0 +1,29 @@
+description: >
+  Precompile a package for macOS with Intel architecture
+
+macos:
+  xcode: 14.0.1
+resource_class: macos.x86.medium.gen2
+
+parameters:
+  package-name:
+    description: Name of the package to precompile
+    type: string
+  expected-version:
+    description: Expected version of the package, if not provided don't check if the same as actual
+    type: string
+    default: no check
+
+steps:
+  - checkout
+  - run:
+      name: Precompile package
+      command: << include(scripts/precompile_for_macos.sh) >>
+      environment:
+        PACKAGE_NAME: << parameters.package-name >>
+        EXPECTED_VERSION: << parameters.expected-version >>
+        ARCHITECTURE: intel
+  - persist_to_workspace:
+      root: ~/project/
+      paths:
+        - workspace/<< parameters.package-name >>_macos_intel
