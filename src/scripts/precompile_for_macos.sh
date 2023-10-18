@@ -17,6 +17,6 @@ cp -r ${brew_prefix}/include/* ~/project/workspace/$artifact_name/include
 cd ${brew_prefix}/lib || exit 1
 for f in *.dylib
 do
-    # install_name_tool -id "@rpath/$f" $f
+    if [[ $ARCHITECTURE == intel ]]; then install_name_tool -id "@rpath/$f" $f; fi
     cp -a "$(readlink $f)" ~/project/workspace/$artifact_name/lib
 done
