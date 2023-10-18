@@ -17,7 +17,7 @@ cp -r ${brew_prefix}/include/* ~/project/workspace/$artifact_name/include
 cd "${brew_prefix}"/lib || exit 1
 for f in *.dylib
 do
-    if [! -L $f]
+    if [ ! -L $f ]
     then
         install_name_tool -id "@rpath/$f" $f
         otool -L $f | tail -n +3 | cut -d ' ' -f 1 | ( grep "^${brew_prefix}" || [ "$?" == "1" ] ) | while read -r line; do install_name_tool -change $line "@rpath/$(basename $line)" $f; done
