@@ -12,7 +12,7 @@ if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check")$ ]]
 then
     echo "Version passed via tag: $EXPECTED_VERSION not matching installed version: $real_version"
     exit 1
-fi
+fi  
 cp -r ${brew_prefix}/include/* ~/project/workspace/$artifact_name/include
 for f in "${brew_prefix}"/lib/*.dylib
 do
