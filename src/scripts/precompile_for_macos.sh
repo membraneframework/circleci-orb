@@ -12,12 +12,12 @@ if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check")$ ]]
 then
     echo "Version passed via tag: $EXPECTED_VERSION not matching installed version: $real_version"
     exit 1
-fi    
+fi
 cp -r ${brew_prefix}/include/* ~/project/workspace/$artifact_name/include
 for f in "${brew_prefix}"/lib/*.dylib
 do
     install_name_tool -id "@rpath/$(basename $f)" $f
-    otool -L $f | tail -n +3 | cut -d ' ' -f 1 | grep "^${brew_prefix}" | while read -r line; do install_name_tool -change $line "@rpath/$(basename $line)" $f; done
+    otool -L $f | tail -n +3 | cut -d ' ' -f 1 | ( grep "^${brew_prefix}" || [ "$?" == "1" ] ) | while read -r line; do install_name_tool -change $line "@rpath/$(basename $line)" $f; done
     [[ $ARCHITECTURE == arm ]] && codesign --sign - --force --preserve-metadata=entitlements,requirements,flags,runtime $f
     cp -a "$(readlink -f $f)" ~/project/workspace/$artifact_name/lib
 done
