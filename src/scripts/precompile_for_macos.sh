@@ -6,7 +6,10 @@ esac
 mkdir -p ~/project/workspace/$artifact_name/include
 mkdir -p ~/project/workspace/$artifact_name/lib
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-[[ "$(brew list)" == "" ]] || brew remove --force "$(brew list)" --ignore-dependencies
+for pkg in "$(brew list)"
+do
+    brew remove --force $pkg --ignore-dependencies
+done
 brew install $PACKAGE_NAME
 real_version="v$(brew list --versions | grep -w $PACKAGE_NAME | cut -d ' ' -f 2)"
 if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check")$ ]]
