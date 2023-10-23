@@ -18,7 +18,7 @@ then
 fi    
 cp -Lr /home/linuxbrew/.linuxbrew/include/* ~/project/workspace/$artifact_name/include
 cd /home/linuxbrew/.linuxbrew/lib || exit 1
-for f in /home/linuxbrew/.linuxbrew/Cellar/*/*/*.so*
+for f in /home/linuxbrew/.linuxbrew/Cellar/*/*/lib/*.so*
 do
     cp -a $f ~/project/workspace/$artifact_name/lib
 done
