@@ -18,10 +18,11 @@ then
     exit 1
 fi  
 cp -r ${brew_prefix}/include/* ~/project/workspace/$artifact_name/include
+
 cd "${brew_prefix}"/lib || exit 1
-for l in *.dylib
+for l in "${brew_prefix}"/Cellar/*/*/*.dylib
 do
-    cp -a "$(readlink $l)" ~/project/workspace/$artifact_name/lib
+    cp -a $l ~/project/workspace/$artifact_name/lib
     f=~/project/workspace/$artifact_name/lib/$l
     if [ ! -L $f ]
     then
