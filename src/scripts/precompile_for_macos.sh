@@ -23,7 +23,7 @@ cd "${brew_prefix}"/lib || exit 1
 for l in "${brew_prefix}"/Cellar/*/*/lib/*.dylib
 do
     cp -a $l ~/project/workspace/$artifact_name/lib
-    f=~/project/workspace/$artifact_name/lib/$l
+    f=~/project/workspace/$artifact_name/lib/$(basename $l)
     if [ ! -L $f ]
     then
         # Problem: libraries installed by brew have load commands in them that use absolute paths. 
