@@ -1,4 +1,5 @@
 artifact_name="${PACKAGE_NAME}_linux"
+unwanted_deps=(alsa-lib openssl)
 apt-get update
 apt-get install -y curl gcc git make g++ bzip2
 mkdir -p ~/project/workspace/$artifact_name/include
@@ -10,10 +11,13 @@ do
     brew uninstall --force $pkg --ignore-dependencies
 done
 brew install $PACKAGE_NAME
-if [[ $PACKAGE_NAME == "portaudio" ]]
-then
-    brew uninstall alsa-lib openssl --force --ignore-dependencies
-fi
+for pkg in "${unwanted_deps[@]}"
+do
+    if brew list | grep -q "^${pkg}$"
+    then
+        brew uninstall --ignore-dependencies --force "${pkg}"
+    fi
+done
 real_version="v$(brew list --versions | grep -w $PACKAGE_NAME | cut -d ' ' -f 2)"
 if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check")$ ]]
 then

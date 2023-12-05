@@ -1,4 +1,5 @@
 artifact_name="${PACKAGE_NAME}_macos_${ARCHITECTURE}"
+unwanted_deps=(openssl)
 case $ARCHITECTURE in 
     arm) brew_prefix="/opt/homebrew" ;;
     intel) brew_prefix="/usr/local" ;;
@@ -11,6 +12,13 @@ do
     brew uninstall --force $pkg --ignore-dependencies
 done
 brew install $PACKAGE_NAME
+for pkg in "${unwanted_deps[@]}"
+do
+    if brew list | grep -q "^${pkg}$"
+    then
+        brew uninstall --ignore-dependencies --force "${pkg}"
+    fi
+done
 real_version="v$(brew list --versions | grep -w $PACKAGE_NAME | cut -d ' ' -f 2)"
 if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check")$ ]]
 then
