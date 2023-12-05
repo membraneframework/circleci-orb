@@ -12,7 +12,7 @@ done
 brew install $PACKAGE_NAME
 if [[ $PACKAGE_NAME == "portaudio" ]]
 then
-    brew uninstall --force alsa-lib --ignore-dependencies
+    brew uninstall alsa-lib openssl --force --ignore-dependencies
 fi
 real_version="v$(brew list --versions | grep -w $PACKAGE_NAME | cut -d ' ' -f 2)"
 if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check")$ ]]
