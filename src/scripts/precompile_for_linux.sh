@@ -8,14 +8,14 @@ mkdir -p ~/project/workspace/$artifact_name/lib
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 for pkg in $(brew list)
 do
-    brew uninstall --force $pkg --ignore-dependencies
+    brew uninstall --ignore-dependencies --force $pkg
 done
 brew install $PACKAGE_NAME
 for pkg in "${unwanted_deps[@]}"
 do
     if brew list | grep -q "^${pkg}$"
     then
-        brew uninstall --ignore-dependencies --force "${pkg}"
+        brew uninstall --ignore-dependencies --force $pkg
     fi
 done
 real_version="v$(brew list --versions | grep -w $PACKAGE_NAME | cut -d ' ' -f 2)"
