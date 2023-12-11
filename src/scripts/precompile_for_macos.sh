@@ -14,7 +14,7 @@ done
 brew install $PACKAGE_NAME
 for pkg in "${unwanted_deps[@]}"
 do
-    if brew list | grep -q "^${pkg}$"
+    if brew list | grep -q "^${pkg}($|@)"
     then
         brew uninstall --ignore-dependencies --force $pkg
     fi
