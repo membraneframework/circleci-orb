@@ -2,7 +2,7 @@ description: >
   Runs linting and static analysis tools for the project
 
 executor:
-  name: docker_membrane
+  name: << parameters.executor >>
   mix_env: dev
 
 parameters:
@@ -24,7 +24,8 @@ parameters:
     default: 1
   executor:
     description: "Executor for this job, elixir or docker_membrane"
-    type: string
+    type: enum
+    enum: ["elixir", "docker_membrane"]
     default: docker_membrane
 
 steps:
