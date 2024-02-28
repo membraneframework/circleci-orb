@@ -1,0 +1,10 @@
+description: >
+  Docker executor using latest elixir image
+docker:
+  - image: elixir:latest
+    environment:
+      MIX_ENV: << parameters.mix_env >>
+parameters:
+  mix_env:
+    description: MIX_ENV set inside executor's env
+    type: string

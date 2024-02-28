@@ -2,7 +2,7 @@ description: >
   Publish the package to hex
 
 executor:
-  name: docker_membrane
+  name: << parameters.executor >>
   mix_env: dev
 
 parameters:
@@ -10,6 +10,10 @@ parameters:
     description: "Cache version number, can be used to force cache recreation"
     type: integer
     default: 1
+  executor:
+    description: "Executor for this job, elixir or docker_membrane"
+    type: string
+    default: docker_membrane
 
 steps:
   - checkout
