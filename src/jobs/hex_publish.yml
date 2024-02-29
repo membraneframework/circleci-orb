@@ -18,7 +18,6 @@ parameters:
 
 steps:
   - checkout
-  - install_hex_rebar
   - get_mix_deps:
       cache-version: << parameters.cache-version >>
   - use_build_cache:
