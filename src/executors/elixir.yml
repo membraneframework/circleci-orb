@@ -1,7 +1,7 @@
 description: >
   Docker executor using latest elixir image
 docker:
-  - image: elixir:latest
+  - image: hexpm/elixir:latest
     environment:
       MIX_ENV: << parameters.mix_env >>
 parameters:
