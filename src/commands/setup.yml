@@ -2,7 +2,7 @@ description: Installs hex, rebar and gcc
 steps:
   - run:
       name: Install gcc
-      command: apt update -y && apt install -y gcc pkg-config
+      command: apt-get update -y && apt-get install -y gcc pkg-config
   - run:
       name: Install hex and rebar
       command: mix local.hex --force && mix local.rebar --force
