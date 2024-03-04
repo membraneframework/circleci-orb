@@ -30,7 +30,7 @@ parameters:
 
 steps:
   - checkout
-  - install_hex_rebar
+  - setup
   - run:
       name: Ensure priv dir exists
       command: mkdir -p priv

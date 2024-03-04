@@ -1,0 +1,5 @@
+description: Installs hex, rebar and gcc
+steps:
+  - run:
+      name: Install
+      command: mix local.hex --force && mix local.rebar --force && apt install gcc
