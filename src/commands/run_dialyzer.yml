@@ -12,10 +12,10 @@ steps:
       command: mkdir -p "priv/plts"
   - run:
       name: Get Erlang version
-      command: asdf current erlang > .runtime_version
+      command: << include(scripts/get_erlang_version.sh) >>
   - run:
       name: Get Elixir version
-      command: asdf current elixir >> .runtime_version
+      command: elixir --version >> .runtime_version
   - restore_cache:
       keys:
         - v<< parameters.cache-version >>-dialyzer-{{ checksum ".runtime_version" }}-{{ checksum "mix.lock" }}
