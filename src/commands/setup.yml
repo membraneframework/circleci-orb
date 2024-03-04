@@ -2,6 +2,8 @@ description: Installs hex, rebar and gcc
 steps:
   - run:
       name: Install gcc
+      environment:
+        DEBIAN_FRONTEND: noninteractive
       command: apt-get update -y && apt-get install -y gcc pkg-config
   - run:
       name: Install hex and rebar
