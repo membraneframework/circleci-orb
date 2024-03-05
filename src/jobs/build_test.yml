@@ -18,7 +18,11 @@ parameters:
 
 steps:
   - checkout
-  - setup
+  - when:
+      condition:
+        equal: [elixir, << parameters.executor >>]
+      steps:
+        - elixir_executor_setup
   - run:
       name: Ensure priv dir exists
       command: mkdir -p priv

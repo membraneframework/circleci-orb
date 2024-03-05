@@ -18,7 +18,11 @@ parameters:
 
 steps:
   - checkout
-  - setup
+  - when:
+      condition:
+        equal: [elixir, << parameters.executor >>]
+      steps:
+        - elixir_executor_setup
   - get_mix_deps:
       cache-version: << parameters.cache-version >>
   - use_build_cache:
