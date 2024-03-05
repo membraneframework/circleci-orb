@@ -2,7 +2,7 @@ description: >
   Runs linting and static analysis tools for the project
 
 executor:
-  name: docker_membrane
+  name: << parameters.executor >>
   mix_env: dev
 
 parameters:
@@ -22,8 +22,19 @@ parameters:
     description: "Cache version number, can be used to force cache recreation"
     type: integer
     default: 1
+  executor:
+    description: "Executor for this job, elixir or docker_membrane"
+    type: enum
+    enum: ["elixir", "docker_membrane"]
+    default: docker_membrane
+
 steps:
   - checkout
+  - when:
+      condition:
+        equal: [elixir, << parameters.executor >>]
+      steps:
+        - elixir_executor_setup
   - run:
       name: Ensure priv dir exists
       command: mkdir -p priv
