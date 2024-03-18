@@ -11,3 +11,4 @@ parameters:
   version:
     description: Version of the image
     type: string
+    default: latest
