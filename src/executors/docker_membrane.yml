@@ -1,10 +1,14 @@
 description: >
   Docker executor using latest docker_membrane image
 docker:
-  - image: membraneframeworklabs/docker_membrane:latest
+  - image: membraneframeworklabs/docker_membrane:<< parameters.version >>
     environment:
       MIX_ENV: << parameters.mix_env >>
 parameters:
   mix_env:
     description: MIX_ENV set inside executor's env
     type: string
+  version:
+    description: Version of the image
+    type: string
+    default: latest
