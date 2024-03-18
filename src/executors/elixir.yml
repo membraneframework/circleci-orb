@@ -1,10 +1,13 @@
 description: >
   Docker executor using latest elixir image
 docker:
-  - image: hexpm/elixir:1.15.7-erlang-24.3.4.16-ubuntu-focal-20240123
+  - image: elixir:<< parameters.version >>
     environment:
       MIX_ENV: << parameters.mix_env >>
 parameters:
   mix_env:
     description: MIX_ENV set inside executor's env
+    type: string
+  version:
+    description: Version of the image
     type: string

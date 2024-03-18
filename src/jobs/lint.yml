@@ -4,6 +4,7 @@ description: >
 executor:
   name: << parameters.executor >>
   mix_env: dev
+  version: << parameters.executor-version >>
 
 parameters:
   credo:
@@ -27,6 +28,10 @@ parameters:
     type: enum
     enum: ["elixir", "docker_membrane"]
     default: docker_membrane
+  executor-version:
+    description: "Version of executor's image"
+    type: string
+    default: latest
 
 steps:
   - checkout
