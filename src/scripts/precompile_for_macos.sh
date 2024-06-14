@@ -22,10 +22,10 @@ do
         brew uninstall --ignore-dependencies --force $pkg
     fi
 done
-cp -r $(brew --prefix)/include/* ~/project/workspace/$artifact_name/include
+cp -r "$(brew --prefix)"/include/* ~/project/workspace/$artifact_name/include
 
-cd $(brew --prefix)/lib || exit 1
-for l in $(brew --prefix)/Cellar/*/*/lib/*.dylib
+cd "$(brew --prefix)"/lib || exit 1
+for l in "$(brew --prefix)"/Cellar/*/*/lib/*.dylib
 do
     cp -a $l ~/project/workspace/$artifact_name/lib
     f=~/project/workspace/$artifact_name/lib/$(basename $l)
