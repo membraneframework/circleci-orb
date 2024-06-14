@@ -9,7 +9,7 @@ then
     echo "Version passed via tag: $EXPECTED_VERSION not matching installed version: $real_version"
     exit 1
 fi  
-rm -f $(brew --caskroom)/*
+rm -f "$(brew --caskroom)"/*
 for pkg in $(brew list)
 do
     brew uninstall --ignore-dependencies --force $pkg 
@@ -40,7 +40,7 @@ do
         install_name_tool -id "@rpath/$(basename $f)" $f
         # update the LC_LOAD_DYLIB commands that refer to dependencies of current library that have been 
         # installed by brew and set as local paths so that their names are also relative paths and the dependencies can be located during linking
-        otool -L $f | tail -n +3 | awk -F" " '{print $1}' | ( grep -E "^(${brew_prefix}|@loader_path)" || [ "$?" == "1" ] ) | while read -r line; do install_name_tool -change $line "@rpath/$(basename $line)" $f; done
+        otool -L $f | tail -n +3 | awk -F" " '{print $1}' | ( grep -E "^($(brew --prefix)|@loader_path)" || [ "$?" == "1" ] ) | while read -r line; do install_name_tool -change $line "@rpath/$(basename $line)" $f; done
         # if compiled on arm architecture then the libraries will be codesigned on `brew install`
         # and need to be resigned, because the previous changes invalidated the signature
         [[ $ARCHITECTURE == arm ]] && codesign --sign - --force --preserve-metadata=entitlements,requirements,flags,runtime $f

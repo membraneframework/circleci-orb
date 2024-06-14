@@ -11,7 +11,8 @@ then
     echo "Version passed via tag: $EXPECTED_VERSION not matching installed version: $real_version"
     exit 1
 fi  
-export PATH="$(brew --prefix)/bin:$PATH"
+PATH="$(brew --prefix)/bin:$PATH"
+export PATH
 rm -f "$(brew --caskroom)"/*
 for pkg in $(brew list)
 do
