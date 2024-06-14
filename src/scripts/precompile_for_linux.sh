@@ -12,7 +12,7 @@ then
     exit 1
 fi  
 export PATH="$(brew --prefix)/bin:$PATH"
-rm -f $(brew --caskroom)/*
+rm -f "$(brew --caskroom)"/*
 for pkg in $(brew list)
 do
     brew uninstall --ignore-dependencies --force $pkg
@@ -25,9 +25,9 @@ do
         brew uninstall --ignore-dependencies --force $pkg
     fi
 done
-cp -Lr $(brew --prefix)/include/* ~/project/workspace/$artifact_name/include
-cd $(brew --prefix)/lib || exit 1
-for f in $(brew --prefix)/Cellar/*/*/lib/*.so*
+cp -Lr "$(brew --prefix)"/include/* ~/project/workspace/$artifact_name/include
+cd "$(brew --prefix)"/lib || exit 1
+for f in "$(brew --prefix)"/Cellar/*/*/lib/*.so*
 do
     cp -a $f ~/project/workspace/$artifact_name/lib
 done
