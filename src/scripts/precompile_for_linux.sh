@@ -13,7 +13,8 @@ then
 fi  
 PATH="$(brew --prefix)/bin:$PATH"
 export PATH
-rm -rf "$(brew --caskroom)"/*
+caskroom=$(brew --caskroom)
+rm -f "${caskroom:?}"/*
 for pkg in $(brew list)
 do
     brew uninstall --ignore-dependencies --force $pkg
