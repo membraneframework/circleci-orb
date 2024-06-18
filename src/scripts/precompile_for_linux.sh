@@ -5,7 +5,7 @@ apt-get install -y curl gcc git make g++ bzip2
 mkdir -p ~/project/workspace/$artifact_name/include
 mkdir -p ~/project/workspace/$artifact_name/lib
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-real_version="v$(brew info $PACKAGE_NAME | head -1 | cut -d ' ' -f 4)"
+real_version="v$(brew info $PACKAGE_NAME | tail -n +1 | head -1 | cut -d ' ' -f 4)"
 if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check")$ ]]
 then
     echo "Version passed via tag: $EXPECTED_VERSION not matching installed version: $real_version"
@@ -13,7 +13,7 @@ then
 fi  
 PATH="$(brew --prefix)/bin:$PATH"
 export PATH
-rm -f "$(brew --caskroom)"/*
+rm -rf "$(brew --caskroom)"/*
 for pkg in $(brew list)
 do
     brew uninstall --ignore-dependencies --force $pkg
