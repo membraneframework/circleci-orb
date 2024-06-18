@@ -1,13 +1,11 @@
 artifact_name="${PACKAGE_NAME}_macos_${ARCHITECTURE}"
 unwanted_deps=(openssl)
-case $ARCHITECTURE in 
-    arm) brew_prefix="/opt/homebrew" ;;
-    intel) brew_prefix="/usr/local" ;;
-esac    
 mkdir -p ~/project/workspace/$artifact_name/include
 mkdir -p ~/project/workspace/$artifact_name/lib
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-real_version="v$(brew info $PACKAGE_NAME | head -1 | cut -d ' ' -f 4)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || true
+caskroom=$(brew --caskroom)
+rm -rf "${caskroom:?}"/*
+real_version="v$(brew info $PACKAGE_NAME | tail -n +1 | head -1 | cut -d ' ' -f 4)"
 if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check")$ ]]
 then
     echo "Version passed via tag: $EXPECTED_VERSION not matching installed version: $real_version"
@@ -25,10 +23,10 @@ do
         brew uninstall --ignore-dependencies --force $pkg
     fi
 done
-cp -r ${brew_prefix}/include/* ~/project/workspace/$artifact_name/include
+cp -r "$(brew --prefix)"/include/* ~/project/workspace/$artifact_name/include
 
-cd "${brew_prefix}"/lib || exit 1
-for l in "${brew_prefix}"/Cellar/*/*/lib/*.dylib
+cd "$(brew --prefix)"/lib || exit 1
+for l in "$(brew --prefix)"/Cellar/*/*/lib/*.dylib
 do
     cp -a $l ~/project/workspace/$artifact_name/lib
     f=~/project/workspace/$artifact_name/lib/$(basename $l)
@@ -43,7 +41,7 @@ do
         install_name_tool -id "@rpath/$(basename $f)" $f
         # update the LC_LOAD_DYLIB commands that refer to dependencies of current library that have been 
         # installed by brew and set as local paths so that their names are also relative paths and the dependencies can be located during linking
-        otool -L $f | tail -n +3 | awk -F" " '{print $1}' | ( grep -E "^(${brew_prefix}|@loader_path)" || [ "$?" == "1" ] ) | while read -r line; do install_name_tool -change $line "@rpath/$(basename $line)" $f; done
+        otool -L $f | tail -n +3 | awk -F" " '{print $1}' | ( grep -E "^($(brew --prefix)|@loader_path)" || [ "$?" == "1" ] ) | while read -r line; do install_name_tool -change $line "@rpath/$(basename $line)" $f; done
         # if compiled on arm architecture then the libraries will be codesigned on `brew install`
         # and need to be resigned, because the previous changes invalidated the signature
         [[ $ARCHITECTURE == arm ]] && codesign --sign - --force --preserve-metadata=entitlements,requirements,flags,runtime $f
