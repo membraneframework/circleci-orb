@@ -22,9 +22,6 @@ steps:
   - restore_cache:
       keys:
         - v<< parameters.cache-version >>-build-{{ arch }}-<< parameters.env >>-{{ checksum "mix.lock" }}
-        - v<< parameters.cache-version >>-build-{{ arch }}-<< parameters.env >>-
-        - v<< parameters.cache-version >>-build-{{ arch }}-
-        - v<< parameters.cache-version >>-build-
   - when:
       condition: << parameters.regenerate >>
       steps:
