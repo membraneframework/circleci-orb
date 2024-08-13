@@ -31,7 +31,7 @@ jobs:
       mix_env: test
     steps:
       - checkout
-      - run: wget -O - https://github.com/membraneframework/membrane_h264_plugin/archive/refs/tags/v0.7.3.tar.gz | tar xz --strip-components=1
+      - run: wget -O - https://github.com/membraneframework/membrane_h26x_plugin/archive/refs/tags/v0.10.2.tar.gz | tar xz --strip-components=1
       - elixir/get_mix_deps:
           cache-version: 2137
       - elixir/use_build_cache:
