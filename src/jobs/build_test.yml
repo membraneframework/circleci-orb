@@ -3,7 +3,7 @@ description: >
 
 executor:
   name: << parameters.executor >>
-  mix_env: test
+  mix_env: dev
   version: << parameters.executor-version >>
 
 parameters:
@@ -39,11 +39,7 @@ steps:
       regenerate: true
       before-save:
         - run: mix deps.compile
-        - run:
-            name: mix compile
-            command: mix compile --force --warnings-as-errors
-            environment:
-              MIX_ENV: dev
+        - run: mix compile --force --warnings-as-errors
   - run:
       name: Ensure no unused deps are present in mix.lock
       command: mix deps.unlock --check-unused
