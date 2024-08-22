@@ -35,7 +35,7 @@ steps:
       cache-version: << parameters.cache-version >>
   - use_build_cache:
       cache-version: << parameters.cache-version >>
-      env: test
+      env: dev
       regenerate: true
       before-save:
         - run: mix deps.compile
