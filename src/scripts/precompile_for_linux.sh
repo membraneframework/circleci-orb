@@ -28,7 +28,7 @@ do
 done
 cp -Lr "$(brew --prefix)"/include/* ~/project/workspace/$artifact_name/include
 cd "$(brew --prefix)"/lib || exit 1
-for f in "$(brew --prefix)"/Cellar/*/*/lib/*.so*
+for f in "$(brew --prefix)"/Cellar/*/*/lib/lib*.so*
 do
     cp -a $f ~/project/workspace/$artifact_name/lib
 done
