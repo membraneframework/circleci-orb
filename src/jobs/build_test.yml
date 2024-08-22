@@ -39,7 +39,11 @@ steps:
       regenerate: true
       before-save:
         - run: mix deps.compile
-        - run: mix compile --force --warnings-as-errors
+        - run:
+            name: mix compile
+            command: mix compile --force --warnings-as-errors
+            environment:
+              MIX_ENV: dev
   - run:
       name: Ensure no unused deps are present in mix.lock
       command: mix deps.unlock --check-unused
