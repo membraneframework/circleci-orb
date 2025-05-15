@@ -1,9 +1,8 @@
 description: >
-  Precompile a package for macOS with Intel architecture
+  CircleCI has deprecated support for all Intel-based macOS resources, this job will do nothing.
 
-macos:
-  xcode: 14.0.1
-resource_class: macos.x86.medium.gen2
+docker:
+  - image: ubuntu
 
 parameters:
   package-name:
@@ -17,13 +16,5 @@ parameters:
 steps:
   - checkout
   - run:
-      name: Precompile package
-      command: << include(scripts/precompile_for_macos.sh) >>
-      environment:
-        PACKAGE_NAME: << parameters.package-name >>
-        EXPECTED_VERSION: << parameters.expected-version >>
-        ARCHITECTURE: intel
-  - persist_to_workspace:
-      root: ~/project/
-      paths:
-        - workspace/<< parameters.package-name >>_macos_intel
+      name: Skip precompilation
+      command: echo 'Intel-based macOS resources deprecated, skipping'
