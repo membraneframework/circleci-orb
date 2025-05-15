@@ -14,9 +14,9 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 caskroom=$(brew --caskroom)
 rm -rf "${caskroom:?}"/*
 # get the latest version of the package and check if it matches the version provided in the tag
-real_version="v$(brew info $PACKAGE_NAME | tail -n +1 | head -1 | cut -d ' ' -f 4)"
+real_version="v$(brew info $PACKAGE_NAME | tail -n +1 | awk 'BEGIN {FS="[ ,]";} NR==1 {print $4}')"
 if [[ ! $EXPECTED_VERSION =~ ^($real_version|"no check")$ ]]; then
-  echo "Version passed via tag: $EXPECTED_VERSION not matching installed version: $real_version"
+  echo "Version passed via tag: $EXPECTED_VERSION not matching version to be installed: $real_version"
   exit 1
 fi
 # uninstall all packages that are already installed, since only the installed package
@@ -38,4 +38,3 @@ cd "$(brew --prefix)"/lib || exit 1
 for f in "$(brew --prefix)"/Cellar/*/*/lib/lib*.so*; do
   cp -a $f ~/project/workspace/$artifact_name/lib
 done
-
