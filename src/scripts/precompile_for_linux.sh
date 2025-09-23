@@ -1,4 +1,4 @@
-artifact_name="${PACKAGE_NAME}_linux"
+artifact_name="${PACKAGE_NAME}_linux_${ARCHITECTURE}"
 # dependencies that shouldn't be installed here, because they should already be present on the target system
 unwanted_deps=(alsa-lib openssl)
 # install homebrew dependencies
