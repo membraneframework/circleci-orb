@@ -26,3 +26,4 @@ steps:
       root: ~/project/
       paths:
         - workspace/<< parameters.package-name >>_linux_x86
+        - workspace/<< parameters.package-name >>_linux
