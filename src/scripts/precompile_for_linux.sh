@@ -1,9 +1,17 @@
-artifact_name="${PACKAGE_NAME}_linux"
+artifact_name="${PACKAGE_NAME}_linux_${ARCHITECTURE}"
 # dependencies that shouldn't be installed here, because they should already be present on the target system
 unwanted_deps=(alsa-lib openssl)
 # install homebrew dependencies
-apt-get update
-apt-get install -y curl gcc git make g++ bzip2
+case "$ARCHITECTURE" in
+"arm")
+  sudo apt-get update
+  sudo apt-get install -y curl gcc git make g++ bzip2
+  ;;
+"x86")
+  apt-get update
+  apt-get install -y curl gcc git make g++ bzip2
+  ;;
+esac
 # create directories for artifacts
 mkdir -p ~/project/workspace/$artifact_name/include
 mkdir -p ~/project/workspace/$artifact_name/lib
@@ -38,3 +46,7 @@ cd "$(brew --prefix)"/lib || exit 1
 for f in "$(brew --prefix)"/Cellar/*/*/lib/lib*.so*; do
   cp -a $f ~/project/workspace/$artifact_name/lib
 done
+if [ $ARCHITECTURE = "x86" ]; then
+  # for backwards compatibility, old dependency provider will try accessing x86 builds without the suffix
+  cp -a ~/project/workspace/$artifact_name ~/project/workspace/${PACKAGE_NAME}_linux
+fi
