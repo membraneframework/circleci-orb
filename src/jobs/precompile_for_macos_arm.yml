@@ -2,7 +2,7 @@ description: >
   Precompile a package for macOS with ARM architecture
 
 macos:
-  xcode: 14.0.1
+  xcode: 16.4.0
 resource_class: macos.m1.medium.gen1
 
 parameters:
